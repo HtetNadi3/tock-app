@@ -1,0 +1,136 @@
+/* ============================================================
+   components.css — Reusable UI primitives
+   ============================================================ */
+
+/* ── BUTTONS ──────────────────────────────────────────────── */
+.btn {
+  display: inline-flex; align-items: center; justify-content: center;
+  border: none; cursor: pointer; border-radius: var(--r-sm);
+  font-family: var(--f-mono); font-size: 10px; letter-spacing: 2px;
+  text-transform: uppercase; transition: all var(--t-base);
+  position: relative; overflow: hidden; white-space: nowrap;
+  user-select: none;
+}
+.btn::after {
+  content: ''; position: absolute; inset: 0;
+  background: #fff; opacity: 0; transition: opacity var(--t-fast);
+}
+.btn:hover::after { opacity: 0.07; }
+.btn:active { transform: scale(0.97); }
+
+/* sizes */
+.btn-sm { height: 28px; padding: 0 12px; font-size: 9px; }
+.btn-md { height: 38px; padding: 0 16px; }
+.btn-lg { height: 50px; padding: 0 24px; font-size: 12px; }
+.btn-icon { width: 38px; height: 38px; padding: 0; font-size: 15px; }
+.btn-icon-lg { width: 50px; height: 50px; padding: 0; font-size: 17px; }
+
+/* variants */
+.btn-primary  { background: var(--accent); color: #000; font-family: var(--f-display); font-size: 20px; letter-spacing: 4px; }
+.btn-ghost    { background: transparent; border: 1px solid var(--b2); color: var(--tx2); }
+.btn-ghost:hover { border-color: var(--b3); color: var(--tx1); }
+.btn-surface  { background: var(--s3); border: 1px solid var(--b2); color: var(--tx2); }
+.btn-surface:hover { border-color: var(--accent-border); color: var(--accent); }
+.btn-danger   { background: var(--red); color: #fff; }
+.btn-blue     { background: var(--blue); color: #fff; font-family: var(--f-display); font-size: 20px; letter-spacing: 4px; }
+.btn-muted    { background: var(--s3); border: 1px solid var(--b2); color: var(--tx3); }
+.btn-muted:hover { border-color: var(--b3); color: var(--tx2); }
+
+/* ── INPUTS ───────────────────────────────────────────────── */
+.inp {
+  height: 40px;
+  background: var(--s2); border: 1px solid var(--b2);
+  border-radius: var(--r-sm); color: var(--tx1);
+  font-family: var(--f-body); font-size: 13px;
+  padding: 0 14px; outline: none;
+  transition: border-color var(--t-fast);
+}
+.inp:focus { border-color: var(--accent-border); }
+.inp::placeholder { color: var(--tx3); }
+.inp-mono {
+  font-family: var(--f-mono); font-size: 13px; text-align: center;
+  letter-spacing: 1px;
+}
+.inp-sm { height: 32px; padding: 0 10px; font-size: 12px; }
+
+/* number spinners hidden */
+.inp[type=number]::-webkit-inner-spin-button,
+.inp[type=number]::-webkit-outer-spin-button { -webkit-appearance: none; }
+.inp[type=number] { -moz-appearance: textfield; }
+
+/* ── TOGGLE SWITCH ────────────────────────────────────────── */
+.toggle {
+  position: relative; width: 40px; height: 22px;
+  flex-shrink: 0; cursor: pointer;
+}
+.toggle input { opacity: 0; width: 0; height: 0; position: absolute; }
+.toggle-track {
+  position: absolute; inset: 0;
+  background: var(--b2); border-radius: 11px;
+  transition: background var(--t-base);
+}
+.toggle-track::after {
+  content: ''; position: absolute;
+  left: 3px; top: 3px; width: 16px; height: 16px;
+  background: var(--tx3); border-radius: 50%;
+  transition: all var(--t-base);
+}
+.toggle input:checked ~ .toggle-track { background: var(--accent); }
+.toggle input:checked ~ .toggle-track::after { background: #000; left: 21px; }
+
+/* ── BADGE ────────────────────────────────────────────────── */
+.badge {
+  display: inline-flex; align-items: center; gap: 4px;
+  height: 20px; padding: 0 7px; border-radius: 4px;
+  font-family: var(--f-mono); font-size: 9px; letter-spacing: 1px;
+  text-transform: uppercase; border: 1px solid transparent;
+  white-space: nowrap;
+}
+.badge-default { background: var(--s3); border-color: var(--b2); color: var(--tx3); }
+.badge-accent  { background: var(--accent-dim); border-color: var(--accent-border); color: var(--accent); }
+.badge-blue    { background: rgba(79,158,255,.1); border-color: rgba(79,158,255,.3); color: var(--blue); }
+.badge-red     { background: rgba(255,79,79,.1);  border-color: rgba(255,79,79,.3);  color: var(--red); }
+.badge-orange  { background: rgba(255,150,64,.1); border-color: rgba(255,150,64,.3); color: var(--orange); }
+
+/* ── DIVIDER ──────────────────────────────────────────────── */
+.divider {
+  display: flex; align-items: center; gap: 10px; width: 100%;
+}
+.divider::before, .divider::after {
+  content: ''; flex: 1; height: 1px; background: var(--b1);
+}
+.divider-label {
+  font-family: var(--f-mono); font-size: 9px;
+  letter-spacing: 2px; color: var(--tx3); text-transform: uppercase;
+  white-space: nowrap;
+}
+
+/* ── CARD ─────────────────────────────────────────────────── */
+.card {
+  background: var(--s1); border: 1px solid var(--b1);
+  border-radius: var(--r-md); padding: 16px;
+}
+.card-inset {
+  background: var(--s2); border: 1px solid var(--b1);
+  border-radius: var(--r-sm); padding: 12px 14px;
+}
+
+/* ── SECTION LABEL ────────────────────────────────────────── */
+.section-label {
+  font-family: var(--f-mono); font-size: 8px;
+  letter-spacing: 2.5px; color: var(--tx3);
+  text-transform: uppercase;
+}
+
+/* ── SCROLLBAR ────────────────────────────────────────────── */
+.scroll-y { overflow-y: auto; }
+.scroll-y::-webkit-scrollbar { width: 2px; }
+.scroll-y::-webkit-scrollbar-track { background: transparent; }
+.scroll-y::-webkit-scrollbar-thumb { background: var(--b2); border-radius: 1px; }
+
+/* ── FADE-UP ANIMATION ────────────────────────────────────── */
+@keyframes fade-up {
+  from { opacity: 0; transform: translateY(6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.anim-fade-up { animation: fade-up var(--t-base) ease; }

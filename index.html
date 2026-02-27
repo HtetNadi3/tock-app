@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TOCK — Elite Focus</title>
+  <link rel="icon"
+    href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>⏱️</text></svg>">
+  <link rel="stylesheet" href="css/tokens.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/layout.css">
+</head>
+
+<body>
+  <div class="bg-blob"></div>
+
+  <!-- ── ALARM OVERLAY ──────────────────────────────────────── -->
+  <div class="alarm-overlay" id="alarm-overlay">
+    <div class="alarm-heading focus" id="alarm-heading">TIME'S UP</div>
+    <div class="alarm-sub" id="alarm-sub">Session complete</div>
+    <div class="alarm-countdown" id="alarm-cd">Stopping in 10s</div>
+    <button class="btn btn-danger btn-lg" id="btn-stop-alarm">STOP ALARM</button>
+  </div>
+
+  <!-- ── APP ────────────────────────────────────────────────── -->
+  <div class="app">
+
+    <!-- HEADER -->
+    <header class="app-header">
+      <div class="logo">
+        TOCK
+        <div class="logo-dot" id="logo-dot"></div>
+      </div>
+      <div class="header-stats">
+        <div class="hstat">
+          <div class="hstat-val" id="hs-sessions">0</div>
+          <div class="hstat-label">Sessions</div>
+        </div>
+        <div class="hstat">
+          <div class="hstat-val" id="hs-focus">0m</div>
+          <div class="hstat-label">Focused</div>
+        </div>
+        <div class="hstat">
+          <div class="hstat-val" id="hs-done">0</div>
+          <div class="hstat-label">Done</div>
+        </div>
+      </div>
+    </header>
+
+    <!-- ── LEFT: TIMER ────────────────────────────────────── -->
+    <div class="timer-col">
+
+      <!-- mode tabs -->
+      <div class="mode-tabs">
+        <button class="mode-tab active" data-mode="focus">Focus</button>
+        <button class="mode-tab" data-mode="break">Break</button>
+      </div>
+
+      <!-- timer card -->
+      <div class="timer-card" id="timer-card">
+
+        <!-- active task pill -->
+        <div class="active-pill" id="active-pill">
+          <div class="pill-dot"></div>
+          <span class="pill-text" id="pill-text">No Active Task</span>
+        </div>
+
+        <!-- ring -->
+        <div class="ring-wrap">
+          <svg class="ring-svg" viewBox="0 0 100 100">
+            <circle class="ring-track" cx="50" cy="50" r="44" />
+            <circle class="ring-fill" cx="50" cy="50" r="44" id="ring-fill" stroke-dasharray="276.46"
+              stroke-dashoffset="0" />
+          </svg>
+          <div class="ring-center">
+            <div class="ring-time" id="ring-time">25:00</div>
+            <div class="ring-mode" id="ring-mode">Focus</div>
+          </div>
+        </div>
+
+        <!-- controls -->
+        <div class="timer-controls">
+          <button class="btn btn-primary btn-lg" id="btn-main" style="flex:1">START</button>
+          <button class="btn btn-surface btn-icon-lg" id="btn-reset" title="Reset">↺</button>
+        </div>
+
+        <!-- custom duration -->
+        <div style="width:100%;display:flex;flex-direction:column;gap:8px;">
+          <div class="divider"><span class="divider-label">Custom Duration</span></div>
+          <div class="duration-row">
+            <input class="inp inp-mono inp-sm" id="dur-h" type="number" min="0" max="23" placeholder="00"
+              style="flex:1">
+            <span class="duration-colon">:</span>
+            <input class="inp inp-mono inp-sm" id="dur-m" type="number" min="0" max="59" value="25" placeholder="25"
+              style="flex:1">
+            <button class="btn btn-surface btn-md" id="btn-set-dur">SET</button>
+          </div>
+        </div>
+
+        <!-- sound panel -->
+        <div class="sound-panel">
+          <div class="sound-panel-header">
+            <div class="sound-panel-title">🎧&ensp;Focus Sound</div>
+            <label class="toggle">
+              <input type="checkbox" id="sound-toggle">
+              <div class="toggle-track"></div>
+            </label>
+          </div>
+
+          <div class="sound-body" id="sound-body" style="display:none;">
+
+            <span class="section-label">🌧️ Nature & Rain</span>
+            <div class="sound-grid">
+              <button class="sound-btn" data-sound="dark-rain">
+                <div class="sb-icon">⛈️</div>
+                <div class="sb-name">Dark</div>
+              </button>
+              <button class="sound-btn" data-sound="flute-rain">
+                <div class="sb-icon">🎶</div>
+                <div class="sb-name">Flute</div>
+              </button>
+              <button class="sound-btn" data-sound="kiss-the-rain">
+                <div class="sb-icon">💧</div>
+                <div class="sb-name">Kiss</div>
+              </button>
+              <button class="sound-btn" data-sound="relaxing-rain">
+                <div class="sb-icon">🌦️</div>
+                <div class="sb-name">Relaxing</div>
+              </button>
+              <button class="sound-btn" data-sound="sleepy-rain">
+                <div class="sb-icon">💤</div>
+                <div class="sb-name">Sleepy</div>
+              </button>
+            </div>
+
+            <span class="section-label">🎹 Piano Melodies</span>
+            <div class="sound-grid">
+              <button class="sound-btn" data-sound="mountain-piano">
+                <div class="sb-icon">🏔️</div>
+                <div class="sb-name">Mountain</div>
+              </button>
+              <button class="sound-btn" data-sound="piano">
+                <div class="sb-icon">🎹</div>
+                <div class="sb-name">Classic</div>
+              </button>
+              <button class="sound-btn" data-sound="rap-piano">
+                <div class="sb-icon">🎤</div>
+                <div class="sb-name">Rap</div>
+              </button>
+              <button class="sound-btn" data-sound="slow-piano">
+                <div class="sb-icon">🕯️</div>
+                <div class="sb-name">Slow</div>
+              </button>
+              <button class="sound-btn" data-sound="relax">
+                <div class="sb-icon">🌙</div>
+                <div class="sb-name">Relaxing</div>
+              </button>
+            </div>
+
+            <span class="section-label">🎸 Guitar Strings</span>
+            <div class="sound-grid">
+              <button class="sound-btn" data-sound="acoustic-guitar">
+                <div class="sb-icon">🎸</div>
+                <div class="sb-name">Acoustic</div>
+              </button>
+              <button class="sound-btn" data-sound="guitar-slow">
+                <div class="sb-icon">🌙</div>
+                <div class="sb-name">Slow</div>
+              </button>
+              <button class="sound-btn" data-sound="romantic-acoustic-guitar">
+                <div class="sb-icon">💖</div>
+                <div class="sb-name">Romantic</div>
+              </button>
+            </div>
+
+            <span class="section-label">🧠 Focus & Noises</span>
+            <div class="sound-grid">
+              <button class="sound-btn" data-sound="alpha-waves">
+                <div class="sb-icon">🌀</div>
+                <div class="sb-name">Alpha</div>
+              </button>
+              <button class="sound-btn" data-sound="lo-fi-romantic">
+                <div class="sb-icon">☕</div>
+                <div class="sb-name">Lo-Fi</div>
+              </button>
+              <button class="sound-btn" data-sound="soft-brown-noise">
+                <div class="sb-icon">🟫</div>
+                <div class="sb-name">Brown</div>
+              </button>
+              <button class="sound-btn" data-sound="game-music">
+                <div class="sb-icon">🎮</div>
+                <div class="sb-name">Game-Music</div>
+              </button>
+              <button class="sound-btn" data-sound="game-loop">
+                <div class="sb-icon">🎮</div>
+                <div class="sb-name">Game-Loop</div>
+              </button>
+            </div>
+
+            <div class="vol-row">
+              <div class="vol-header">
+                <span class="section-label">Master Volume</span>
+                <span class="vol-pct" id="vol-pct">50%</span>
+              </div>
+              <div class="vol-track" id="vol-track">
+                <div class="vol-rail"></div>
+                <div class="vol-fill" id="vol-fill"></div>
+                <div class="vol-thumb" id="vol-thumb"></div>
+                <input type="range" class="vol-range" id="vol-range" min="0" max="100" value="50">
+              </div>
+            </div>
+
+          </div><!-- /sound-body -->
+        </div><!-- /sound-panel -->
+
+      </div><!-- /timer-card -->
+    </div><!-- /timer-col -->
+
+    <!-- ── RIGHT: TASKS ───────────────────────────────────── -->
+    <div class="task-col">
+
+      <div class="col-header">
+        <div class="col-title">TASKS</div>
+        <div class="col-meta" id="col-meta">0 tasks</div>
+      </div>
+
+      <!-- add task form -->
+      <div class="add-form">
+        <div class="add-form-top">
+          <input class="inp" id="task-inp" type="text" placeholder="What will you focus on?" style="flex:1">
+          <button class="btn btn-primary btn-icon" id="btn-add-task"
+            style="width:40px;height:40px;font-size:22px;font-family:sans-serif;">+</button>
+        </div>
+        <div class="add-form-bottom">
+          <span class="section-label" style="white-space:nowrap;">Duration:</span>
+          <div class="dur-presets" id="dur-presets">
+            <button class="dur-preset" data-mins="15">15m</button>
+            <button class="dur-preset active" data-mins="25">25m</button>
+            <button class="dur-preset" data-mins="45">45m</button>
+            <button class="dur-preset" data-mins="60">60m</button>
+          </div>
+          <div class="dur-custom-wrap">
+            <input class="inp inp-mono" id="dur-custom" type="number" min="1" max="480" placeholder="—"
+              style="width:50px;height:26px;font-size:11px;padding:0 6px;">
+            <span class="dur-custom-label section-label">min</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- filter tabs -->
+      <div class="filter-tabs">
+        <button class="filter-tab active" data-f="all">All</button>
+        <button class="filter-tab" data-f="active">Active</button>
+        <button class="filter-tab" data-f="done">Done</button>
+      </div>
+
+      <!-- task list -->
+      <div class="task-list scroll-y" id="task-list"></div>
+
+      <button class="btn btn-ghost btn-sm" id="btn-clear-done">Clear Completed</button>
+
+
+    </div><!-- /task-col -->
+
+    <!-- FOOTER -->
+    <footer class="app-footer">
+      <span class="footer-brand">TOCK © 2025</span>
+
+    </footer>
+
+  </div><!-- /app -->
+  <script src="https://www.youtube.com/iframe_api"></script>
+
+  <!-- JS: load order matters — store → timer → sound → ui → app -->
+  <script src="js/store.js"></script>
+  <script src="js/timer.js"></script>
+  <script src="js/sound.js"></script>
+  <script src="js/ui.js"></script>
+  <script src="js/app.js"></script>
+  <script src="js/api.js"></script>
+</body>
+
+</html>

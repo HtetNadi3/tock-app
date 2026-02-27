@@ -1,0 +1,86 @@
+/* ============================================================
+   tokens.css — Design tokens & global base
+   ============================================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=JetBrains+Mono:wght@300;400;500&family=DM+Sans:wght@300;400;500&display=swap');
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  /* surfaces */
+  --bg:      #070709;
+  --s1:      #0f0f12;
+  --s2:      #141417;
+  --s3:      #1c1c20;
+  --s4:      #232328;
+
+  /* borders */
+  --b1:      #1e1e22;
+  --b2:      #2a2a30;
+  --b3:      #363640;
+
+  /* accent */
+  --accent:       #c8ff00;
+  --accent-dim:   rgba(200,255,0,0.10);
+  --accent-dimx:  rgba(200,255,0,0.05);
+  --accent-border:rgba(200,255,0,0.28);
+
+  /* semantic */
+  --red:     #ff4f4f;
+  --blue:    #4f9eff;
+  --orange:  #ff9640;
+
+  /* text */
+  --tx1:     #f0f0f2;
+  --tx2:     #8a8a95;
+  --tx3:     #4a4a55;
+
+  /* radius */
+  --r-sm:    8px;
+  --r-md:    12px;
+  --r-lg:    16px;
+
+  /* font families */
+  --f-display: 'Bebas Neue', sans-serif;
+  --f-mono:    'JetBrains Mono', monospace;
+  --f-body:    'DM Sans', sans-serif;
+
+  /* transitions */
+  --t-fast:  0.15s ease;
+  --t-base:  0.22s ease;
+  --t-slow:  0.35s ease;
+}
+
+html, body {
+  height: 100%;
+  background: var(--bg);
+  color: var(--tx1);
+  font-family: var(--f-body);
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* noise overlay */
+body::after {
+  content: '';
+  position: fixed; inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.025'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 9999;
+}
+
+/* ambient glow */
+.bg-blob {
+  position: fixed;
+  width: 800px; height: 800px;
+  background: radial-gradient(circle, rgba(200,255,0,0.045) 0%, transparent 65%);
+  border-radius: 50%;
+  top: 35%; left: 50%;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  animation: blob-pulse 9s ease-in-out infinite;
+}
+@keyframes blob-pulse {
+  0%,100% { transform: translate(-50%,-50%) scale(1);   opacity: 1; }
+  50%      { transform: translate(-50%,-50%) scale(1.1); opacity: 0.6; }
+}
